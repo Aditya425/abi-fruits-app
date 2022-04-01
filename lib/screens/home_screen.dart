@@ -1,5 +1,6 @@
 import 'package:abi_fruits_app/modal/seller.dart';
 import 'package:abi_fruits_app/networking/get_sellers.dart';
+import 'package:abi_fruits_app/screens/search_screen.dart';
 import 'package:abi_fruits_app/screens/sort_screen.dart';
 import 'package:abi_fruits_app/sort_types.dart';
 import 'package:flutter/cupertino.dart';
@@ -108,21 +109,29 @@ class _HomeScreenState extends State<HomeScreen> {
                         Expanded(
                           child: Material(
                             elevation: 10,
-                            child: TextField(
-                              decoration: InputDecoration(
-                                  focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(100),
-                                      borderSide: BorderSide(
-                                          color: Colors.transparent)),
-                                  enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(100),
-                                      borderSide: BorderSide(
-                                          color: Colors.transparent)),
-                                  hintText: "Search",
-                                  prefixIcon: Icon(
-                                    Icons.search,
-                                    color: Colors.black,
-                                  )),
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (context) => SearchScreen(sellers)));
+                              },
+                              child: TextField(
+                                enabled: false,
+                                decoration: InputDecoration(
+                                    focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(100),
+                                        borderSide: BorderSide(
+                                            color: Colors.transparent)),
+                                    enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(100),
+                                        borderSide: BorderSide(
+                                            color: Colors.transparent)),
+                                    hintText: "Search",
+                                    prefixIcon: Icon(
+                                      Icons.search,
+                                      color: Colors.black,
+                                    )
+                                ),
+                              ),
                             ),
                           ),
                         ),
@@ -176,188 +185,191 @@ class _HomeScreenState extends State<HomeScreen> {
                       width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.height * 0.6,
                       child: ListView.builder(
+                        physics: BouncingScrollPhysics(),
                         itemCount: sellers.length,
                         itemBuilder: (context, index) {
-                          return Card(
-                              elevation: 7,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(4)),
-                              child: Column(
-                                children: [
-                                  Container(
-                                    width:
-                                        MediaQuery.of(context).size.width - 24,
-                                    height: 20,
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(left: 20),
-                                      child: Text(
-                                        "${sellers[index].seller}",
-                                        style:
-                                            TextStyle(color: Color(0xff636363)),
+                          return GestureDetector(
+                            child: Card(
+                                elevation: 7,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(4)),
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      width:
+                                          MediaQuery.of(context).size.width - 24,
+                                      height: 20,
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(left: 20),
+                                        child: Text(
+                                          "${sellers[index].seller}",
+                                          style:
+                                              TextStyle(color: Color(0xff636363)),
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  Container(
-                                    width:
-                                        MediaQuery.of(context).size.width - 24,
-                                    height: 80,
-                                    color: Color(0xfff4f3df),
-                                    child: Padding(
-                                      padding: EdgeInsets.only(left: 20),
-                                      child: Column(
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Column(
-                                                children: [
-                                                  Text(
-                                                    "${sellers[index].product}",
-                                                    style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  ),
-                                                  Text(
-                                                    "Product",
-                                                    style: TextStyle(
-                                                        color: Colors.black),
-                                                  )
-                                                ],
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                              ),
-                                              SizedBox(
-                                                width: 20,
-                                              ),
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    "${sellers[index].variety}",
-                                                    style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  ),
-                                                  Text(
-                                                    "Variety",
-                                                    style: TextStyle(
-                                                        color: Colors.black),
-                                                  )
-                                                ],
-                                              ),
-                                              SizedBox(
-                                                width: 20,
-                                              ),
-                                              Container(
-                                                decoration: BoxDecoration(
-                                                    color: Color(0xffe3e2d0),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            20)),
-                                                child: Text(
-                                                  "₹${sellers[index].price}",
-                                                  style: TextStyle(
-                                                      color: Color(0xff7eb986)),
+                                    Container(
+                                      width:
+                                          MediaQuery.of(context).size.width - 24,
+                                      height: 80,
+                                      color: Color(0xfff4f3df),
+                                      child: Padding(
+                                        padding: EdgeInsets.only(left: 20),
+                                        child: Column(
+                                          children: [
+                                            Row(
+                                              children: [
+                                                Column(
+                                                  children: [
+                                                    Text(
+                                                      "${sellers[index].product}",
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                    Text(
+                                                      "Product",
+                                                      style: TextStyle(
+                                                          color: Colors.black),
+                                                    )
+                                                  ],
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
                                                 ),
-                                              )
-                                            ],
-                                          ),
-                                          SizedBox(
-                                            height: 15,
-                                          ),
-                                          Row(
-                                            children: [
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    "${sellers[index].avgWeight}",
+                                                SizedBox(
+                                                  width: 20,
+                                                ),
+                                                Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      "${sellers[index].variety}",
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                    Text(
+                                                      "Variety",
+                                                      style: TextStyle(
+                                                          color: Colors.black),
+                                                    )
+                                                  ],
+                                                ),
+                                                SizedBox(
+                                                  width: 20,
+                                                ),
+                                                Container(
+                                                  decoration: BoxDecoration(
+                                                      color: Color(0xffe3e2d0),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              20)),
+                                                  child: Text(
+                                                    "₹${sellers[index].price}",
                                                     style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.bold),
+                                                        color: Color(0xff7eb986)),
                                                   ),
-                                                  Text(
-                                                    "avg weight",
-                                                    style: TextStyle(
-                                                        color: Colors.black),
-                                                  )
-                                                ],
-                                              ),
-                                              SizedBox(
-                                                width: 20,
-                                              ),
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    "${sellers[index].perBox}",
-                                                    style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  ),
-                                                  Text(
-                                                    "per box",
-                                                    style: TextStyle(
-                                                        color: Colors.black),
-                                                  )
-                                                ],
-                                              ),
-                                              SizedBox(
-                                                width: 20,
-                                              ),
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    "${sellers[index].boxes}",
-                                                    style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  ),
-                                                  Text(
-                                                    "Boxes",
-                                                    style: TextStyle(
-                                                        color: Colors.black),
-                                                  )
-                                                ],
-                                              ),
-                                              SizedBox(
-                                                width: 20,
-                                              ),
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    "${sellers[index].delivery}",
-                                                    style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  ),
-                                                  Text(
-                                                    "Delivery",
-                                                    style: TextStyle(
-                                                        color: Colors.black),
-                                                  )
-                                                ],
-                                              ),
-                                            ],
-                                          )
-                                        ],
+                                                )
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              height: 15,
+                                            ),
+                                            Row(
+                                              children: [
+                                                Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      "${sellers[index].avgWeight}",
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                    Text(
+                                                      "avg weight",
+                                                      style: TextStyle(
+                                                          color: Colors.black),
+                                                    )
+                                                  ],
+                                                ),
+                                                SizedBox(
+                                                  width: 20,
+                                                ),
+                                                Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      "${sellers[index].perBox}",
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                    Text(
+                                                      "per box",
+                                                      style: TextStyle(
+                                                          color: Colors.black),
+                                                    )
+                                                  ],
+                                                ),
+                                                SizedBox(
+                                                  width: 20,
+                                                ),
+                                                Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      "${sellers[index].boxes}",
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                    Text(
+                                                      "Boxes",
+                                                      style: TextStyle(
+                                                          color: Colors.black),
+                                                    )
+                                                  ],
+                                                ),
+                                                SizedBox(
+                                                  width: 20,
+                                                ),
+                                                Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      "${sellers[index].delivery}",
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                    Text(
+                                                      "Delivery",
+                                                      style: TextStyle(
+                                                          color: Colors.black),
+                                                    )
+                                                  ],
+                                                ),
+                                              ],
+                                            )
+                                          ],
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ],
-                              )
+                                  ],
+                                )
+                            ),
                           );
                         },
                       ),
