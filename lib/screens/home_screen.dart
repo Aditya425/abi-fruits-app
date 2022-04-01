@@ -1,5 +1,6 @@
 import 'package:abi_fruits_app/modal/seller.dart';
 import 'package:abi_fruits_app/networking/get_sellers.dart';
+import 'package:abi_fruits_app/screens/details_screen.dart';
 import 'package:abi_fruits_app/screens/search_screen.dart';
 import 'package:abi_fruits_app/screens/sort_screen.dart';
 import 'package:abi_fruits_app/sort_types.dart';
@@ -189,6 +190,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         itemCount: sellers.length,
                         itemBuilder: (context, index) {
                           return GestureDetector(
+                            onTap: () {
+                              Navigator.push(context,
+                                  MaterialPageRoute(
+                                      builder: (context) => DetailsScreen(sellers[index])
+                                  )
+                              );
+                            },
                             child: Card(
                                 elevation: 7,
                                 shape: RoundedRectangleBorder(

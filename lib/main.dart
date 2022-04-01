@@ -23,8 +23,8 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         routes: {
           HomeScreen.id: (context) => HomeScreen(),
-          DetailsScreen.id: (context) => DetailsScreen(),
-          SearchScreen.id: (context) => SearchScreen(tempList)
+          SearchScreen.id: (context) => SearchScreen(tempList),
+
         },
         initialRoute: HomeScreen.id,
       ),
